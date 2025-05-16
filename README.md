@@ -1,1 +1,0 @@
-# event-reward-system
