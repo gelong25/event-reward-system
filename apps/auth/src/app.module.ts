@@ -12,6 +12,8 @@ import { UserModule } from './user/user.module';
       envFilePath: '.env',
       validationSchema: Joi.object({
         MONGO_URI: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
+        JWT_EXPIRES_IN: Joi.string().default('3600s'),
       }),
     }),
     MongooseModule.forRootAsync({
