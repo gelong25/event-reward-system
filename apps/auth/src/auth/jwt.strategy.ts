@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
  * JWT 토큰에서 디코딩된 사용자 정보 정의
  */
 export interface JwtPayload {
+  [x: string]: any;
   username: string;
   role: string;
 }

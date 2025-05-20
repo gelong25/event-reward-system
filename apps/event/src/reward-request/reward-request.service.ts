@@ -31,7 +31,8 @@ export class RewardRequestService {
   ): Promise<RewardRequest> {
     // 이벤트 존재 확인
     const event = await this.eventService.findOne(
-      createRewardRequestDto.eventId.toString(),
+      createRewardRequestDto.eventId.toString()
+    );
     
     // 이벤트가 활성 상태인지 확인
     if (!event.isActive) {

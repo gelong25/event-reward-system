@@ -55,7 +55,7 @@ export class EventService {
   async findActive(): Promise<Event[]> {
     const now = new Date();
     return this.eventModel.find({
-        isActive: true,
+      isActive: true,
       $and: [
         {
           $or: [
@@ -64,7 +64,9 @@ export class EventService {
           ]
         },
         {
-            $or: [{ endDate: { $exists: false } }, { endDate: { $gte: now } }],
+          $or: [
+            { endDate: { $exists: false } }, 
+            { endDate: { $gte: now } }
           ]
         }
       ]

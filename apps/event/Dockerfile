@@ -8,6 +8,6 @@ RUN npm install
 
 WORKDIR /app/apps/event
 
-RUN npm run build
+RUN npm run build:event
 
-CMD ["node", "dist/main"]
+CMD ["node", "../../dist/apps/event/main"]

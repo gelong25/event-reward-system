@@ -8,6 +8,6 @@ RUN npm install
 
 WORKDIR /app/apps/auth
 
-RUN npm run build
+RUN npm run build:auth
 
-CMD ["node", "dist/main"]
+CMD ["node", "../../dist/apps/auth/main"]

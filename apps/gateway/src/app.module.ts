@@ -4,6 +4,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { AppController } from './app.controller';
+import { EventModule } from './event/event.module';
 
 /**
  * 게이트웨이 애플리케이션의 루트 모듈
@@ -20,6 +21,7 @@ import { AppController } from './app.controller';
       secret: process.env.JWT_SECRET || 'fallback-secret',
       signOptions: { expiresIn: '3600s' },
     }),
+    EventModule,
   ],
   controllers: [AppController],
   providers: [JwtStrategy],

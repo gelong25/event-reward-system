@@ -8,6 +8,6 @@ RUN npm install
 
 WORKDIR /app/apps/gateway
 
-RUN npm run build
+RUN npm run build:gateway
 
-CMD ["node", "dist/main"]
+CMD ["node", "../../dist/apps/gateway/main"]
