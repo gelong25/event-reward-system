@@ -7,39 +7,62 @@ services:
       - '27017:27017'
     volumes:
       - mongo-data:/data/db
+    networks:
+      - event-reward-network
 
   auth:
     build:
       context: .
       dockerfile: apps/auth/Dockerfile
+    container_name: auth
     ports:
       - '3001:3001'
     env_file:
       - apps/auth/.env
     depends_on:
       - mongo
+    networks:
+      - event-reward-network
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/event-reward
+      - JWT_SECRET=secret-key-for-jwt
 
   gateway:
     build:
       context: .
       dockerfile: apps/gateway/Dockerfile
+    container_name: gateway
     ports:
       - '3000:3000'
     env_file:
       - apps/gateway/.env
     depends_on:
       - auth
+      - event
+    networks:
+      - event-reward-network
+    environment:
+      - JWT_SECRET=secret-key-for-jwt
 
   event:
     build:
       context: .
       dockerfile: apps/event/Dockerfile
+    container_name: event
     ports:
       - '3002:3002'
     env_file:
       - apps/event/.env
     depends_on:
       - mongo
+    networks:
+      - event-reward-network
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/event-reward
 
 volumes:
   mongo-data:
+
+networks:
+  event-reward-network:
+    driver: bridge
