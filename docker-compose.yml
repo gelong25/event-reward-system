@@ -17,13 +17,14 @@ services:
     container_name: auth
     ports:
       - '3001:3001'
-    env_file:
-      - apps/auth/.env
+    # env_file:
+    #   - apps/auth/.env
     depends_on:
       - mongo
     networks:
       - event-reward-network
     environment:
+      - PORT=3001
       - MONGO_URI=mongodb://mongo:27017/event-reward
       - JWT_SECRET=secret-key-for-jwt
 
@@ -34,15 +35,18 @@ services:
     container_name: gateway
     ports:
       - '3000:3000'
-    env_file:
-      - apps/gateway/.env
+    # env_file:
+    #   - apps/gateway/.env
     depends_on:
       - auth
       - event
     networks:
       - event-reward-network
     environment:
+      - PORT=3000
       - JWT_SECRET=secret-key-for-jwt
+      - AUTH_SERVICE_URL=http://auth:3001
+      - EVENT_SERVICE_URL=http://event:3002
 
   event:
     build:
@@ -51,13 +55,14 @@ services:
     container_name: event
     ports:
       - '3002:3002'
-    env_file:
-      - apps/event/.env
+    # env_file:
+    #   - apps/event/.env
     depends_on:
       - mongo
     networks:
       - event-reward-network
     environment:
+      - PORT=3002
       - MONGO_URI=mongodb://mongo:27017/event-reward
 
 volumes:
